@@ -1,13 +1,14 @@
 from manim import *
+# This is incomplete, left here for backup, changes integer values with strings
 class GraphTheory(Scene):
 	def construct(self):
-		v = [1, 2, 3, 4, 5]
-		e = [(1, 2), (1, 3), (1, 4), (3, 4), (2, 4), (2, 5), (4, 5)]
+		v = ["Tram", "Home", "Train"]
+		e = [("Tram", "Home"), ("Tram", "Train"), ("Home", "Train")]
 		g = Graph(v, e, labels=True)
-		self.play(Create(g))
+		self.play(Create(g), run_time=5)
 		self.wait()
-		t1 = Text("What is this?", font="Lucida Console", font_size=38).shift(DOWN)
-		self.play(g.animate.to_edge(UP, buff=0.2))
+		t1 = Text("What is this?", font="Lucida Console", font_size=38).shift(DOWN * 2)
+		self.play(g.animate.to_edge(UP, buff=0.5))
 		self.play(Write(t1))
 		self.play(t1.animate.next_to(g, buff=0.5))
 		t2 = MarkupText(
