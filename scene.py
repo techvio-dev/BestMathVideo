@@ -2,8 +2,13 @@ from manim import *
 # This is incomplete, left here for backup, changes integer values with strings
 class GraphTheory(Scene):
 	def construct(self):
-		v = ["Tram", "Home", "Train"]
-		e = [("Tram", "Home"), ("Tram", "Train"), ("Home", "Train")]
+		pos1 = "TS"
+		pos2 = "BH"
+		pos3 = "MD"
+		pos4 = "MS"
+		pos5 = "HT"
+		v = [pos1, pos2, pos3, pos4, pos5]
+		e = [(pos1, pos2), (pos2, pos3), (pos3, pos4), (pos4, pos5), (pos5, pos1)]
 		g = Graph(v, e, labels=True)
 		self.play(Create(g), run_time=5)
 		self.wait()
