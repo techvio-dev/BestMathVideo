@@ -75,7 +75,7 @@ class GraphTheory(Scene):
         t2 = MarkupText(
             f"""
                 A <span fgcolor="{RED}">graph</span> is a mathematical structure that visualizes
-            """,a
+            """,
             font="Lucida Console",
             font_size=30
         ).move_to([0, 0, 0])
