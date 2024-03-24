@@ -105,27 +105,9 @@ class GraphTheory(Scene):
         self.wait(1)
         self.play(Write(t2_2), run_time=3)
         self.play(Write(t21_2), run_time=3)
-        self.wait(1)
-        t3 = MarkupText(
-            f"""
-                <span fgcolor="{GREEN}">Graph Theory</span> allows us to analyze and model complex
-            """,
-            font="Lucida Console",
-            font_size=30
-        ).next_to(t21_2, DOWN, buff=0.5)
-        t31 = MarkupText(
-            f"""
-                <span fgcolor="{BLUE}">interconnected systems</span> across different fields.
-            """,
-            font="Lucida Console",
-            font_size=30
-        ).next_to(t3, DOWN, buff=0)
-        self.play(Write(t3), run_time=2.5)
-        self.play(Write(t31), run_time=2.5)
-        self.wait(1)
 
-        self.play(FadeOut(t1), FadeOut(t2), FadeOut(t21), FadeOut(t2_2), FadeOut(t21_2), FadeOut(t3), FadeOut(t31))
-        self.play(my_graph.animate.move_to(ORIGIN).scale(1.5))
+        self.play(FadeOut(t1), FadeOut(t2), FadeOut(t21), FadeOut(t2_2), FadeOut(t21_2), run_time=0.5)
+        self.play(my_graph.animate.move_to(ORIGIN).scale(1.5), run_time=1)
         
         
         arrow_to_vertex = Arrow(np.array([-4, 2, 0]), np.array([-2, 1, 0]), buff=0.1, color=RED)
@@ -136,14 +118,29 @@ class GraphTheory(Scene):
         self.play(GrowArrow(arrow_to_vertex), Write(text_vertex))
         vertex_highlight = Circle(radius=0.314, color=RED, stroke_width=9).move_to(np.array([-1.69, 0.94, 0]))
         self.play(Create(vertex_highlight), run_time=1)
-        self.wait(2)
+        self.wait(1)
         
         self.play(GrowArrow(arrow_to_edge), Write(text_edge))
         edge_highlight = Line(np.array([0, -0.47, 0]), np.array([2, 0.2, 0]), color=GREEN, stroke_width=8)
         self.play(Create(edge_highlight), run_time=1)
 
-        self.wait(2)
-
         self.play(FadeOut(vertex_highlight), FadeOut(edge_highlight), FadeOut(arrow_to_vertex), FadeOut(text_vertex), FadeOut(arrow_to_edge), FadeOut(text_edge))
+        self.play(my_graph.animate.move_to(np.array([0, 2, 0])).scale(0.5))
+        t3 = MarkupText(
+            f"""
+                <span fgcolor="{GREEN}">Graph Theory</span> allows us to analyze and model complex
+            """,
+            font="Lucida Console",
+            font_size=30
+        ).move_to(ORIGIN)
+        t31 = MarkupText(
+            f"""
+                <span fgcolor="{BLUE}">interconnected systems</span> across different fields.
+            """,
+            font="Lucida Console",
+            font_size=30
+        ).next_to(t3, DOWN, buff=0)
+        self.play(Write(t3), run_time=4)
+        self.play(Write(t31), run_time=4)
 
-        self.wait(1)
+        self.wait(8)
