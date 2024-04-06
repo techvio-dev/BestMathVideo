@@ -293,9 +293,9 @@ class GraphTheory(Scene):
 			font_size=25
 		).next_to(t74, DOWN, buff=0.2)
 		self.play(Write(t73))
-		self.play(Write(t74))
+		self.play(Write(t74),run_time=1)
 		self.play(Write(t75))
-		self.wait(1.5)
+		self.wait(2)
 		self.play(FadeOut(t71), FadeOut(t72), FadeOut(t73), FadeOut(t74), FadeOut(t75), FadeOut(edge_highlight5), FadeOut(edge_highlight6), FadeOut(edge_highlight7), run_time=0.5)
 		t76 = MarkupText(
 			f"""
@@ -308,7 +308,7 @@ class GraphTheory(Scene):
 		edge_highlight11 = Line(np.array([0, -0.47+1, 2.5]), np.array([-1.3, 0.75+1, 2.5]), color=RED, stroke_width=10)
 		edge_highlight10 = Line(np.array([1.5, 0.2+1, 0]),np.array([0, -0.47+1, 0]), color=RED, stroke_width=8)
 		edge_highlight9 = Line(np.array([0.45, 1.35+1, 2.5]), np.array([1.5, 0.2+1, 0]), color=RED, stroke_width=8)
-		self.play(Write(t76), run_timr=4)
+		self.play(Write(t76), run_time=4)
 		self.play(Create(edge_highlight8), run_time=0.5)
 		self.play(Create(edge_highlight9), run_time=0.5)
 		self.play(Create(edge_highlight10), run_time=0.5)
@@ -381,6 +381,7 @@ class GraphTheory(Scene):
 		self.play(Create(my_graph4.edge_lines), run_time=1)
 		self.play(my_graph4.animate.move_to(UP).scale(0.75), run_time=0.5)
 
+		self.wait(7)
 
 		t8 = MarkupText(
 			f"""
@@ -430,7 +431,7 @@ class GraphTheory(Scene):
 		self.play(Create(edge_highlight22), run_time=0.75)
 		self.play(Create(edge_highlight23), run_time=0.75)
 		graphandhighlight = VGroup(my_graph4, edge_highlight12, edge_highlight13, edge_highlight14, edge_highlight15, edge_highlight16, edge_highlight17, edge_highlight18, edge_highlight19, edge_highlight20, edge_highlight21, edge_highlight22, edge_highlight23)
-		self.wait(1.5)	
+		self.wait(1.7)	
 		self.play(graphandhighlight.animate.move_to(UP).scale(0.75), run_time=0.5)
 		t82 = MarkupText(
 			f"""
@@ -613,31 +614,86 @@ class GraphTheory(Scene):
 		self.wait(0.5)
 		self.play(FadeOut(t10), FadeOut(t11), FadeOut(t12), FadeOut(t13), FadeOut(t14), FadeOut(t15), FadeOut(t16), FadeOut(t17))
 		self.wait(1)
-		t121 = MarkupText(
+		t18 = MarkupText(
 			f"""
-				An Euler path is a path that traverses all edges exactly once but doesn't end at the same node
+			But... Who said we should come back where we started?
 			""",
 			font="Lucida Console",
-			font_size=20
+			font_size=25
 		).next_to(schoolg3, DOWN, buff=0.5)
-		t122 = MarkupText(
+		self.play(Write(t18))
+		t19 = MarkupText(
 			f"""
-				A graph that has an Euler path is also named a semi-Eulerian graph
+			We do not necessarily need a cycle, we just need a <span fgcolor="{RED}">path.</span>
 			""",
 			font="Lucida Console",
-			font_size=20
-		).next_to(t121, DOWN)
-		t123 = MarkupText(
+			font_size=25
+		).next_to(t18, DOWN)
+		t20 = MarkupText(
 			f"""
-				A graph is semi-Eulerian if and only if it has exactly two vertices of odd degrees
+			A path that visits every single node using each edge exactly once
 			""",
 			font="Lucida Console",
-			font_size=20
-		).next_to(t122, DOWN)
-		self.play(Write(t121), run_time=6.75)
-		self.wait(0.5)
-		self.play(Write(t122), run_time=5)
-		self.play(Write(t123), run_time=7)
+			font_size=25
+		).next_to(t19, DOWN)
+		t201 = MarkupText(
+			f"""
+				is called an <span fgcolor="{RED}">Euler path.</span>
+			""",
+			font="Lucida Console",
+			font_size=25
+		).next_to(t20, DOWN)
+		self.play(Write(t19))
+		self.play(Write(t20))
+		self.play(Write(t201))
+		self.wait(3)
+		self.play(FadeOut(t18), FadeOut(t19), FadeOut(t20), FadeOut(t201))
+		t211 = MarkupText(
+			f"""
+			Let's examine the conditions needed for such a path to exist.
+			""",
+			font="Lucida Console",
+			font_size=25
+		).next_to(schoolg3, DOWN)
+		t212 = MarkupText(
+			f"""
+			An Euler path exists if:
+			<span fgcolor="{RED}">
+				- it's an Euler Circuit (if all nodes have an even degree).
+				- If exactly 2 nodes have an odd degree.
+			</span>
+			""",
+			font="Lucida Console",
+			font_size=25
+		).next_to(t211, DOWN)
+		t213 = MarkupText(
+			f"""
+			But... How can we prove that?
+			""",
+			font="Lucida Console",
+			font_size=25
+		).next_to(t212, DOWN)
+		self.play(Write(t211), run_time=4)
+		self.play(Write(t212), run_time=9)
+		self.play(Write(t213), run_time=3)
+		ep_proof = Tex("""
+		Let's call a special node : a node having odd degree.
+		Consider a graph $G$ with 0 special nodes. This implies that $G$ has 
+		an Eulerian cycle.
+		Now consider one with 2 special nodes.
+		Let $A$ and $B$ be the two special nodes, and F be their shortest path.
+		Create a new graph $G'$ by removing all edges of F from G.
+		This reduces the degrees of $A$ and $B$ by 1, and all other nodes in $F$ by 2,
+		making $G'$ Eulerian.
+		This implies there exists a cycle from $A$ passing through all edges of $G'$
+		and returning to $A$, denoted as $P$.
+		Since $F$ and $P$ have no common edges and together form all edges of $G$,
+		they are disjoint paths, completing the proof that there exists an Euler path
+		starting at $A$ and ending at $B$.
+		}""",
+		font_size=30,
+		).next_to(schoolg3, DOWN, buff=0.2)
+		self.play(schoolg3.animate.to_edge(UP, buff=0.2), FadeOut(t211), FadeOut(t212), FadeOut(t213))
+		self.play(Write(ep_proof), run_time=50)
 		self.wait(2)
-		self.play(FadeOut(t121), FadeOut(t122), FadeOut(t123))
-		self.wait(2.5)
+		
